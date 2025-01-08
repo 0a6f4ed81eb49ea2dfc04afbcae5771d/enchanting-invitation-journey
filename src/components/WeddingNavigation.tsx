@@ -1,10 +1,10 @@
-import { Globe, Home, WineGlass, CheckSquare } from "lucide-react";
+import { Globe, Home, CheckSquare } from "lucide-react";
 
 const WeddingNavigation = () => {
   const navItems = [
     { icon: <Globe className="w-6 h-6" />, label: "Nosso Site" },
     { icon: <Home className="w-6 h-6" />, label: "Cerimônia" },
-    { icon: <WineGlass className="w-6 h-6" />, label: "Recepção" },
+    { icon: <Home className="w-6 h-6" />, label: "Recepção" },
     { icon: <CheckSquare className="w-6 h-6" />, label: "Confirmação" },
   ];
 
