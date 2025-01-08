@@ -1,6 +1,9 @@
 import { useState } from "react";
 import WeddingNavigation from "@/components/WeddingNavigation";
 import WeddingEnvelope from "@/components/WeddingEnvelope";
+import CeremonySection from "@/components/CeremonySection";
+import PhotosSection from "@/components/PhotosSection";
+import RSVPSection from "@/components/RSVPSection";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Index = () => {
@@ -29,6 +32,9 @@ const Index = () => {
               <WeddingEnvelope onOpen={handleEnvelopeOpen} />
             </motion.div>
           )}
+          {activeSection === "ceremony" && <CeremonySection />}
+          {activeSection === "photos" && <PhotosSection />}
+          {activeSection === "rsvp" && <RSVPSection />}
         </AnimatePresence>
       </main>
       <WeddingNavigation
