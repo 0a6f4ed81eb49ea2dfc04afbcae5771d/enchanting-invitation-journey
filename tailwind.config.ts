@@ -30,6 +30,9 @@ export default {
           accent: "#FF9B85",
           text: "#4A3F3A",
           background: "#FFF5F2",
+          gold: "#D4AF37",
+          rose: "#FFE4E1",
+          sage: "#E0EEE0",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -60,6 +63,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        script: ["Great Vibes", "cursive"],
+        serif: ["Playfair Display", "serif"],
+        sans: ["Montserrat", "sans-serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -73,16 +81,22 @@ export default {
           "0%": { transform: "rotateX(0deg)" },
           "100%": { transform: "rotateX(180deg)" },
         },
-        "fade-in": {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+        "seal-break": {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.1)" },
+          "100%": { transform: "scale(0)" },
+        },
+        "content-fade": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "envelope-open": "envelope-open 1s ease-in-out forwards",
-        "fade-in": "fade-in 0.5s ease-out",
+        "seal-break": "seal-break 0.5s ease-in-out forwards",
+        "content-fade": "content-fade 0.8s ease-out forwards",
       },
     },
   },
