@@ -25,8 +25,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         wedding: {
-          envelope: "#FDE1D3",
-          accent: "#FFB7A6",
+          primary: "#FFD5CC",
+          secondary: "#FFB7A6",
+          accent: "#FF9B85",
+          text: "#4A3F3A",
+          background: "#FFF5F2",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -58,13 +61,28 @@ export default {
         },
       },
       keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
         "envelope-open": {
           "0%": { transform: "rotateX(0deg)" },
           "100%": { transform: "rotateX(180deg)" },
         },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         "envelope-open": "envelope-open 1s ease-in-out forwards",
+        "fade-in": "fade-in 0.5s ease-out",
       },
     },
   },

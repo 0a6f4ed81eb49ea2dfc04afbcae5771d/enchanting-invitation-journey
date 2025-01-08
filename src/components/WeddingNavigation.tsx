@@ -1,10 +1,10 @@
-import { Globe, Home, CheckSquare } from "lucide-react";
+import { Home, Star, Camera, CheckSquare } from "lucide-react";
 
 const WeddingNavigation = () => {
   const navItems = [
-    { icon: <Globe className="w-6 h-6" />, label: "Nosso Site" },
-    { icon: <Home className="w-6 h-6" />, label: "Cerimônia" },
-    { icon: <Home className="w-6 h-6" />, label: "Recepção" },
+    { icon: <Home className="w-6 h-6" />, label: "Início" },
+    { icon: <Star className="w-6 h-6" />, label: "Cerimônia" },
+    { icon: <Camera className="w-6 h-6" />, label: "Fotos" },
     { icon: <CheckSquare className="w-6 h-6" />, label: "Confirmação" },
   ];
 
@@ -14,7 +14,7 @@ const WeddingNavigation = () => {
         {navItems.map((item, index) => (
           <button
             key={index}
-            className="flex flex-col items-center p-2 text-wedding-envelope hover:text-wedding-accent transition-colors"
+            className="flex flex-col items-center p-2 text-wedding-text hover:text-wedding-accent transition-colors"
           >
             {item.icon}
             <span className="text-xs mt-1">{item.label}</span>
