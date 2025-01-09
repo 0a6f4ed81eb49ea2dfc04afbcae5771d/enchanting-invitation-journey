@@ -10,6 +10,9 @@ import RSVPSection from "@/components/RSVPSection";
 import AdminDashboard from "@/components/AdminDashboard";
 import GuestRegistrationForm from "@/components/GuestRegistrationForm";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Tables } from "@/integrations/supabase/types";
+
+type AdminUser = Tables<"admin_users">;
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");

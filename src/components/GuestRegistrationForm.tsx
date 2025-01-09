@@ -6,12 +6,9 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { useToast } from "./ui/use-toast";
+import type { Database } from "@/integrations/supabase/types";
 
-interface GuestFormData {
-  name: string;
-  email: string;
-  guest_of: "bride" | "groom";
-}
+type GuestFormData = Database['public']['Tables']['guests']['Insert'];
 
 const GuestRegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);

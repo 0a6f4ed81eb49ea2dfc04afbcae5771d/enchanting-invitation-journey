@@ -10,18 +10,9 @@ import {
   TableRow,
 } from "./ui/table";
 import { useToast } from "./ui/use-toast";
+import type { Tables } from "@/integrations/supabase/types";
 
-interface Guest {
-  id: string;
-  name: string;
-  email: string;
-  guest_of: "bride" | "groom";
-  created_at: string;
-  first_access_at: string | null;
-  invitation_sent_at: string | null;
-  has_responded: boolean;
-  response_data: any;
-}
+type Guest = Tables<"guests">;
 
 const AdminDashboard = () => {
   const [guests, setGuests] = useState<Guest[]>([]);
