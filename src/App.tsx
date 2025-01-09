@@ -7,8 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Header from "./components/Header";
 
-<<<<<<< HEAD
-=======
 // READ THESE FUCKING LINES AND APPLY THESE REQUIMENTS
 // IT'S NOT A WRONG COMMENT
 //
@@ -38,7 +36,7 @@ import Header from "./components/Header";
 // the `Início` page is faaaaar away from what is expected.
 // 5. It is expected to show a complex animation by following the steps below:
 //  5.1. starts with a [logo] on top of screen, a [sealed wax envelope] in the middle and the [event date banner] at the botton of the screen
-//  5.2. an animation of a [event date banner] magically opening and showing the wedding invitation, with the names of the bride and groom and some messages of thanks; 
+//  5.2. an animation of a [event date banner] magically opening and showing the wedding invitation, with the names of the bride and groom and some messages of thanks;
 //  5.3. after a few seconds, an animation should reveal a photo of the bride and groom
 //  5.4. after a few seconds, all elements (except the background) should disappear smoothly
 //  5.5. an animation should show the entire message `Pela vontade ... nos abençoará`, as you can see in the images I sent you
@@ -48,12 +46,7 @@ import Header from "./components/Header";
 //  5.9. the last animation is the same but in a diferent other, `showing the wedding invitation returning to the envelope` and `the envelope being closed`
 // 6. For each design, component, graphic element or any other, ALWAYS draw something with exactly the same image (model, size, color and everything else) as the images I sent you, no exceptions
 // 7. Read carefully each requiment in this list, apply it and after finished answer if each requirement was achived, if not, fix it. you dont have to ask me nothing, just do it.
->>>>>>> 8fd7b7796e1b2c92ab6386177ee770789e0382ff
 
-<<<<<<< HEAD
- 
-=======
->>>>>>> 8fd7b7796e1b2c92ab6386177ee770789e0382ff
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
