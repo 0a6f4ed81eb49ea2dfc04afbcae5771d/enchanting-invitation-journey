@@ -43,19 +43,33 @@ const RSVPSection = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session);
       if (session?.user) {
-        const { data } = await supabase
-          .from("admin_users")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-        setIsAdmin(!!data);
+        try {
+          const { data, error } = await supabase
+            .from("admin_users")
+            .select("*")
+            .eq("id", session.user.id)
+            .single();
+          
+          if (error && error.code !== "PGRST116") { // Ignore "no rows returned" error
+            console.error("Error checking admin status:", error);
+            toast({
+              title: "Error",
+              description: "Failed to check admin status",
+              variant: "destructive",
+            });
+          }
+          setIsAdmin(!!data);
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsAdmin(false);
+        }
       } else {
         setIsAdmin(false);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [toast]);
 
   const updateFirstAccess = async (id: string) => {
     const now = new Date().toISOString();
