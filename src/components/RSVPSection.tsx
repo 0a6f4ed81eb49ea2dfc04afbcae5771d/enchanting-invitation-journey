@@ -89,6 +89,10 @@ const RSVPSection = () => {
     }
   };
 
+  Read this carefully
+  There is something wrong because guestId is never true.
+  The authentication page is required only to get access to admin features, guests users should have access to common pages (buttons at bottom) without any authentication.
+  A top headerbar must be added containing a login button to open the authentication screen, after loggedin a new menu should appears giving access to admin features (read carefully the enumerated requirements list I sent you earlier) and a new button should appears to logout the user.
   if (!guestId) {
     return (
       <div className="p-6 text-center">
