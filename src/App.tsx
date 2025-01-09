@@ -41,3 +41,4 @@ the `Início` page is faaaaar away from what is expected.
 7. Read carefully each requiment in this list, apply it and after finished answer if each requirement was achived, if not, fix it. you dont have to ask me nothing, just do it.
 
 
+ 
