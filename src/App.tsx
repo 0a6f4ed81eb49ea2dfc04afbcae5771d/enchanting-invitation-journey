@@ -48,10 +48,33 @@ const App = () => {
           </div>
           <Auth
             supabaseClient={supabase}
-            appearance={{ theme: ThemeSupa }}
+            appearance={{ 
+              theme: ThemeSupa,
+              variables: {
+                default: {
+                  colors: {
+                    brand: '#666',
+                    brandAccent: '#444',
+                  },
+                },
+              },
+            }}
             theme="light"
             providers={[]}
             redirectTo={window.location.origin}
+            magicLink={false}
+            showLinks={false}
+            view="sign_in"
+            localization={{
+              variables: {
+                sign_in: {
+                  email_label: 'Email',
+                  password_label: 'Senha',
+                  button_label: 'Entrar',
+                  loading_button_label: 'Entrando...',
+                },
+              },
+            }}
           />
         </div>
       </div>
