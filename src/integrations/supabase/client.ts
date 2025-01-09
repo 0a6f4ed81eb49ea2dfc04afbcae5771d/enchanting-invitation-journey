@@ -12,9 +12,8 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   },
 })
 
-// Add error handling for authentication
+// Add error handling and logging for authentication events
 supabase.auth.onAuthStateChange((event, session) => {
-  console.log('Supabase auth event:', event)
   if (event === 'SIGNED_IN') {
     console.log('User signed in:', session?.user?.email)
   }
