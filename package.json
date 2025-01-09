@@ -1,4 +1,12 @@
+
 {
+  ==> These are not just some comment, they are requirements you should read this carefully and apply <==
+APPLY ALL mandatory requirements listed at `APPLY_THESE_MANDATORY_REQUIREMENTS.md` file
+
+
+==> These are not just some comment, they are requirements you should read this carefully and apply <==
+APPLY ALL mandatory requirements listed at `APPLY_THESE_MANDATORY_REQUIREMENTS.md` file
+
   "name": "vite_react_shadcn_ts",
   "private": true,
   "version": "0.0.0",
