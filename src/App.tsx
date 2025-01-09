@@ -15,6 +15,7 @@ APPLY ALL mandatory requirements listed at `APPLY_THESE_MANDATORY_REQUIREMENTS.m
 
 
 
+
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
