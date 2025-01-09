@@ -9,7 +9,7 @@ const PhotosSection = () => {
     { id: 5, alt: "Foto 5" },
     { id: 6, alt: "Foto 6" },
   ];
-  STOP ASKING ME STUPID QUESTIONS !!! OF COURSE I DEMAND YOU TO IMPLEMENT EVERYTHIG, READ THE FUCKING REQUIREMENTS !!!!
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
