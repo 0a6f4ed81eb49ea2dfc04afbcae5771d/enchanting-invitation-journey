@@ -93,6 +93,12 @@ const RSVPSection = () => {
       setIsSubmitting(false);
     }
   };
+  
+  ==> These are not just some comment, they are requirements you should read this carefully and apply <==
+  1- The Login and Logout button should appears in all pages
+  2- When admin is logged in, a new menu should appear allowing admins get access to exclusive features (like invite guest, dashboard and reports), the username should appears at same header bar and button logout should replace the loggin one.
+  3- After logged out, app should treat user as a guest, giving access to common pages, the logout should be replaced by loggedin.
+  The authentication page should have a `continue as a guest` option to just close the authetication page and keep loading the common pages as guest role
 
   const handleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
