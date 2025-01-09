@@ -7,6 +7,7 @@ import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 
 interface RSVPFormData {
   name: string;
@@ -53,11 +54,21 @@ const RSVPSection = () => {
 
     setIsSubmitting(true);
     try {
+      // Convert RSVPFormData to Json type
+      const responseData: Json = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        attendance: data.attendance,
+        guests: data.guests,
+        dietary: data.dietary
+      };
+
       const { error } = await supabase
         .from("guests")
         .update({
           has_responded: true,
-          response_data: data,
+          response_data: responseData,
         })
         .eq("id", guestId);
 
