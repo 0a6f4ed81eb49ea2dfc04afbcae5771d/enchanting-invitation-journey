@@ -17,41 +17,49 @@ const Header = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      setSession(session);
-      if (session?.user) {
-        try {
-          const { data, error } = await supabase
-            .from("admin_users")
-            .select("*")
-            .eq("id", session.user.id)
-            .single();
-          
-          if (error) {
-            // Only show error toast for actual errors, not for "no rows returned"
-            if (error.code !== 'PGRST116') {
-              console.error("Error checking admin status:", error);
-              toast({
-                title: "Error",
-                description: "Failed to check admin status",
-                variant: "destructive",
-              });
-            }
-            setIsAdmin(false);
-            return;
-          }
-          
-          setIsAdmin(!!data);
-        } catch (error) {
+    const checkAdminStatus = async (userId: string) => {
+      try {
+        const { data, error } = await supabase
+          .from("admin_users")
+          .select("*")
+          .eq("id", userId)
+          .single();
+
+        if (error && error.code !== "PGRST116") {
           console.error("Error checking admin status:", error);
+          toast({
+            title: "Error",
+            description: "Failed to check admin status",
+            variant: "destructive",
+          });
           setIsAdmin(false);
+          return;
         }
-      } else {
+
+        setIsAdmin(!!data);
+      } catch (error: any) {
+        console.error("Error checking admin status:", error);
         setIsAdmin(false);
       }
-    });
+    };
 
-    return () => subscription.unsubscribe();
+    const setupAuthListener = () => {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+        if (session?.user) {
+          checkAdminStatus(session.user.id);
+        } else {
+          setIsAdmin(false);
+        }
+      });
+
+      return subscription;
+    };
+
+    const subscription = setupAuthListener();
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [toast]);
 
   const handleLogin = async () => {
@@ -86,7 +94,6 @@ const Header = () => {
   return (
     <div className="fixed top-0 left-0 right-0 bg-white border-b border-wedding-primary/20 px-4 py-2 z-50">
       <div className="flex justify-between items-center max-w-4xl mx-auto">
-        {/* Left side - User info */}
         {session && (
           <div className="flex items-center gap-2 text-wedding-text">
             <User className="h-4 w-4" />
@@ -94,7 +101,6 @@ const Header = () => {
           </div>
         )}
         
-        {/* Right side - Admin menu or Login/Logout */}
         <div className="flex items-center gap-2">
           {isAdmin && (
             <DropdownMenu>
