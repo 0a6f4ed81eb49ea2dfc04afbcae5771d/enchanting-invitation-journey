@@ -13,8 +13,6 @@ IT'S NOT A WRONG COMMENT
 LIST ALL REQUIREMENTS BEFORE, THEN YOU CAN CHANGE THIS FILE AND APPLY ALL MANDATORY FEATURES LISTED HERE
 
 
-
-
 ==> These are not just some comment, they are requirements you should read this carefully and apply <==
 APPLY ALL mandatory requirements listed at `APPLY_THESE_MANDATORY_REQUIREMENTS.md` file
 
