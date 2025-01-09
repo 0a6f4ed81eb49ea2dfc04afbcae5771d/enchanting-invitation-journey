@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface RSVPFormData {
   name: string;
@@ -18,32 +19,77 @@ interface RSVPFormData {
 
 const RSVPSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [guestId, setGuestId] = useState<string | null>(null);
   const { toast } = useToast();
   const { register, handleSubmit, formState: { errors } } = useForm<RSVPFormData>();
 
+  useEffect(() => {
+    // Check for guest_id in URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("guest_id");
+    if (id) {
+      setGuestId(id);
+      updateFirstAccess(id);
+    }
+  }, []);
+
+  const updateFirstAccess = async (id: string) => {
+    const now = new Date().toISOString();
+    await supabase
+      .from("guests")
+      .update({ first_access_at: now })
+      .eq("id", id);
+  };
+
   const onSubmit = async (data: RSVPFormData) => {
+    if (!guestId) {
+      toast({
+        title: "Error",
+        description: "Invalid guest access",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      // Here you would typically send the data to your backend
-      console.log("Form data:", data);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const { error } = await supabase
+        .from("guests")
+        .update({
+          has_responded: true,
+          response_data: data,
+        })
+        .eq("id", guestId);
+
+      if (error) throw error;
+
       toast({
-        title: "Confirmação enviada!",
-        description: "Obrigado por confirmar sua presença.",
+        title: "Thank you!",
+        description: "Your response has been recorded.",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
-        title: "Erro ao enviar",
-        description: "Por favor, tente novamente mais tarde.",
+        title: "Error",
+        description: error.message,
         variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  if (!guestId) {
+    return (
+      <div className="p-6 text-center">
+        <h2 className="font-script text-3xl text-wedding-text mb-4">
+          Invalid Access
+        </h2>
+        <p className="text-wedding-text/80">
+          Please use the link provided in your invitation email.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <motion.div
