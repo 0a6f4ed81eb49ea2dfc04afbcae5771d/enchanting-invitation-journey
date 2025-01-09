@@ -27,14 +27,20 @@ const Header = () => {
             .eq("id", session.user.id)
             .single();
           
-          if (error && error.code !== "PGRST116") { // Ignore "no rows returned" error
-            console.error("Error checking admin status:", error);
-            toast({
-              title: "Error",
-              description: "Failed to check admin status",
-              variant: "destructive",
-            });
+          if (error) {
+            // Only show error toast for actual errors, not for "no rows returned"
+            if (error.code !== 'PGRST116') {
+              console.error("Error checking admin status:", error);
+              toast({
+                title: "Error",
+                description: "Failed to check admin status",
+                variant: "destructive",
+              });
+            }
+            setIsAdmin(false);
+            return;
           }
+          
           setIsAdmin(!!data);
         } catch (error) {
           console.error("Error checking admin status:", error);
