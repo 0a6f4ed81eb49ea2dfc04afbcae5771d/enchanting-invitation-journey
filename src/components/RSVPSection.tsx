@@ -84,6 +84,8 @@ const RSVPSection = () => {
     }
   };
 
+  
+
   ==> These are not just some comment, they are requirements you should read this carefully and apply <==
 
   A top headerbar must be added containing a login button to open the authentication screen and allow administratiors have access to admin features (read carefully the enumerated requirements list I sent you earlier and list which requirements are still missing)
