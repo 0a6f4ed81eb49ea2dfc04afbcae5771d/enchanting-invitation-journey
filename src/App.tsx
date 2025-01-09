@@ -51,6 +51,7 @@ const App = () => {
             appearance={{ theme: ThemeSupa }}
             theme="light"
             providers={[]}
+            redirectTo={window.location.origin}
           />
         </div>
       </div>
