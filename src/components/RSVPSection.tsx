@@ -5,7 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
 import RSVPForm from "./RSVPForm";
 import { Button } from "./ui/button";
-import { LogIn, LogOut } from "lucide-react";
+import { LogIn, LogOut, User, Settings } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 interface RSVPFormData {
   name: string;
@@ -20,6 +27,7 @@ const RSVPSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [guestId, setGuestId] = useState<string | null>(null);
   const [session, setSession] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -32,8 +40,18 @@ const RSVPSection = () => {
     }
 
     // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session);
+      if (session?.user) {
+        const { data } = await supabase
+          .from("admin_users")
+          .select("*")
+          .eq("id", session.user.id)
+          .single();
+        setIsAdmin(!!data);
+      } else {
+        setIsAdmin(false);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -59,7 +77,6 @@ const RSVPSection = () => {
 
     setIsSubmitting(true);
     try {
-      // Convert RSVPFormData to Json type
       const responseData: Json = {
         name: data.name,
         email: data.email,
@@ -93,16 +110,15 @@ const RSVPSection = () => {
       setIsSubmitting(false);
     }
   };
-  
-  ==> These are not just some comment, they are requirements you should read this carefully and apply <==
-  1- The Login and Logout button should appears in all pages
-  2- When admin is logged in, a new menu should appear allowing admins get access to exclusive features (like invite guest, dashboard and reports), the username should appears at same header bar and button logout should replace the loggin one.
-  3- After logged out, app should treat user as a guest, giving access to common pages, the logout should be replaced by loggedin.
-  The authentication page should have a `continue as a guest` option to just close the authetication page and keep loading the common pages as guest role
 
   const handleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google'
+      provider: 'google',
+      options: {
+        queryParams: {
+          prompt: 'consent'
+        }
+      }
     });
     if (error) {
       toast({
@@ -128,26 +144,61 @@ const RSVPSection = () => {
     <div>
       {/* Header Bar */}
       <div className="fixed top-0 left-0 right-0 bg-white border-b border-wedding-primary/20 px-4 py-2 z-50">
-        <div className="flex justify-end items-center max-w-4xl mx-auto">
-          {session ? (
-            <Button 
-              variant="outline" 
-              onClick={handleLogout}
-              className="text-wedding-text"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
-            </Button>
-          ) : (
-            <Button 
-              variant="outline" 
-              onClick={handleLogin}
-              className="text-wedding-text"
-            >
-              <LogIn className="mr-2 h-4 w-4" />
-              Login
-            </Button>
+        <div className="flex justify-between items-center max-w-4xl mx-auto">
+          {/* Left side - User info */}
+          {session && (
+            <div className="flex items-center gap-2 text-wedding-text">
+              <User className="h-4 w-4" />
+              <span className="text-sm">{session.user.email}</span>
+            </div>
           )}
+          
+          {/* Right side - Admin menu or Login/Logout */}
+          <div className="flex items-center gap-2">
+            {isAdmin && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Settings className="h-4 w-4 mr-2" />
+                    Admin Menu
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin/guests">Manage Guests</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin/reports">Reports</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            
+            {session ? (
+              <Button 
+                variant="outline" 
+                onClick={handleLogout}
+                className="text-wedding-text"
+                size="sm"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
+            ) : (
+              <Button 
+                variant="outline" 
+                onClick={handleLogin}
+                className="text-wedding-text"
+                size="sm"
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                Login
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -156,7 +207,7 @@ const RSVPSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="p-6 mt-16" // Added margin top to account for header
+        className="p-6 mt-16"
       >
         <div className="text-center mb-8">
           <h2 className="font-script text-3xl text-wedding-text mb-2">
