@@ -24,7 +24,7 @@ supabase.auth.onAuthStateChange((event, session) => {
   if (event === 'USER_UPDATED') {
     console.log('User updated:', session?.user?.email)
   }
-  if (event === 'USER_DELETED') {
-    console.log('User deleted')
+  if (event === 'TOKEN_REFRESHED') {
+    console.log('Token refreshed')
   }
 })
