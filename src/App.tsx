@@ -7,13 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Header from "./components/Header";
 
-<<<<<<< HEAD
-=======
 // READ THESE FUCKING LINES AND APPLY THESE REQUIMENTS
 // IT'S NOT A WRONG COMMENT
 //
 // LIST ALL REQUIREMENTS BEFORE, THEN YOU CAN CHANGE THIS FILE AND APPLY ALL MANDATORY FEATURES LISTED HERE
-//
 //
 // ==> These are not just some comment, they are requirements you should read this carefully and apply <==
 // APPLY ALL mandatory requirements listed at `APPLY_THESE_MANDATORY_REQUIREMENTS.md` file
@@ -48,12 +45,7 @@ import Header from "./components/Header";
 //  5.9. the last animation is the same but in a diferent other, `showing the wedding invitation returning to the envelope` and `the envelope being closed`
 // 6. For each design, component, graphic element or any other, ALWAYS draw something with exactly the same image (model, size, color and everything else) as the images I sent you, no exceptions
 // 7. Read carefully each requiment in this list, apply it and after finished answer if each requirement was achived, if not, fix it. you dont have to ask me nothing, just do it.
->>>>>>> 8fd7b7796e1b2c92ab6386177ee770789e0382ff
 
-<<<<<<< HEAD
- 
-=======
->>>>>>> 8fd7b7796e1b2c92ab6386177ee770789e0382ff
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
