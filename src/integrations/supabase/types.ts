@@ -9,60 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      admin_users: {
-        Row: {
-          created_at: string
-          id: string
-          role: string
-        }
-        Insert: {
-          created_at?: string
-          id: string
-          role: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          role?: string
-        }
-        Relationships: []
-      }
-      guests: {
-        Row: {
-          created_at: string
-          email: string
-          first_access_at: string | null
-          guest_of: string
-          has_responded: boolean | null
-          id: string
-          invitation_sent_at: string | null
-          name: string
-          response_data: Json | null
-        }
-        Insert: {
-          created_at?: string
-          email: string
-          first_access_at?: string | null
-          guest_of: string
-          has_responded?: boolean | null
-          id?: string
-          invitation_sent_at?: string | null
-          name: string
-          response_data?: Json | null
-        }
-        Update: {
-          created_at?: string
-          email?: string
-          first_access_at?: string | null
-          guest_of?: string
-          has_responded?: boolean | null
-          id?: string
-          invitation_sent_at?: string | null
-          name?: string
-          response_data?: Json | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
