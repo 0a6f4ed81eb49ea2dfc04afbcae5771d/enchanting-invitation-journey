@@ -90,6 +90,14 @@ export default {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "vortex": {
+          "0%": { transform: "rotate(0deg) scale(1)" },
+          "100%": { transform: "rotate(360deg) scale(0)" },
+        },
+        "text-reveal": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -97,6 +105,8 @@ export default {
         "envelope-open": "envelope-open 1s ease-in-out forwards",
         "seal-break": "seal-break 0.5s ease-in-out forwards",
         "content-fade": "content-fade 0.8s ease-out forwards",
+        "vortex": "vortex 1s ease-in-out forwards",
+        "text-reveal": "text-reveal 0.8s ease-out forwards",
       },
     },
   },
